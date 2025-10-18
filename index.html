@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eduardo Ferreira Moura — Portafolio</title>
+  <meta name="description" content="Portafolio profesional de Eduardo Ferreira Moura: cooperación internacional, políticas públicas, desafíos organizacionales y trabajos de conservación/restauración." />
+  <meta property="og:title" content="Eduardo Ferreira Moura — Portafolio" />
+  <meta property="og:description" content="Consultor UNESCO/IPHAN y doctorando en conservación. Proyectos: cooperación internacional, políticas públicas, gestión de riesgos y sostenibilidad." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lbreduardo.github.io/portfolio/" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="assets/favicon.png" />
+  <style>
+    :root{
+      --bg:#0b0f1a;        /* fondo profundo */
+      --panel:#0e1526;     /* paneles */
+      --ink:#e5e7eb;       /* texto principal */
+      --muted:#a5b4fc;     /* acentos suaves */
+      --brand:#60a5fa;     /* azul discreto */
+      --line:#1f2a44;      /* bordes */
+      --card:#111827;      /* tarjetas */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:linear-gradient(160deg, var(--bg), #0a0f1d 40%, #0b1224 100%);
+      color:var(--ink);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, rgba(11,15,26,.9), rgba(11,15,26,.6));
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{font-weight:700; letter-spacing:.3px}
+    .tag{font-size:.85rem; color:#c7d2fe}
+
+    /* Hero */
+    .hero{display:grid; gap:22px; padding:42px 0 26px; align-items:center}
+    @media(min-width:960px){
+      .hero{grid-template-columns:1.05fr .95fr; gap:28px; padding:56px 0 32px}
+    }
+    h1{margin:0 0 8px; font-size:clamp(26px,4.5vw,40px); line-height:1.15}
+    .lead{margin:0 0 14px; font-size:clamp(15px,1.8vw,18px); color:#cbd5e1}
+    .bullets{display:grid; gap:8px; margin:16px 0 0; padding:0; list-style:none}
+    .bullets li{display:flex; gap:10px; align-items:flex-start}
+    .bullets li span{display:inline-block; width:8px; height:8px; margin-top:9px; background:linear-gradient(135deg,var(--brand),var(--muted)); border-radius:999px}
+
+    /* Video */
+    .video-card{background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .video-aspect{position:relative; width:100%; padding-top:56.25%}
+    .video-aspect video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+    .video-meta{display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-top:1px solid var(--line); font-size:.9rem; color:#94a3b8}
+
+    /* Grid menu */
+    .grid{display:grid; gap:16px; margin:18px 0 6px}
+    @media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    .card{display:block; border:1px solid var(--line); background:linear-gradient(180deg, #101827, #0b1427); border-radius:16px; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease}
+    .card:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(0,0,0,.35)}
+    .thumb{position:relative; padding-top:56%; background:#0a1020}
+    .thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(102%) contrast(105%)}
+    .card h3{margin:12px 14px 6px; font-size:1.05rem}
+    .card p{margin:0 14px 14px; color:#b8c1d6; font-size:.95rem}
+
+    /* Sections */
+    section{padding:30px 0; border-top:1px solid var(--line)}
+    section h2{margin:0 0 12px; font-size:clamp(20px,3.2vw,28px)}
+    .gallery{display:grid; gap:12px}
+    @media(min-width:720px){.gallery{grid-template-columns:repeat(3,1fr)}}
+    figure{margin:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#0b1427}
+    figure img{width:100%; height:180px; object-fit:cover; display:block}
+    figure figcaption{padding:10px 12px; font-size:.9rem; color:#a7b0c6}
+
+    footer{padding:30px 0 50px; color:#9aa7c2}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div>
+        <div class="brand">Eduardo Ferreira Moura</div>
+        <div class="tag">Cooperación | Políticas públicas | Conservación</div>
+      </div>
+      <nav>
+        <a href="#menu">Portafolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <h1>Portafolio profesional</h1>
+        <p class="lead">Consultor UNESCO/IPHAN y doctorando en la Universitat Politècnica de València. Experiencia en gestión de riesgos, sostenibilidad en laboratorios de conservación y políticas públicas para el patrimonio cultural.</p>
+        <ul class="bullets">
+          <li><span></span> Doctorando en Conservación del Patrimonio Cultural (UPV).</li>
+          <li><span></span> Consultor individual — Proyecto UNESCO/IPHAN (gestión de riesgos).</li>
+          <li><span></span> Sostenibilidad en laboratorios — Hub OCM/ICCROM en Brasil (Casa de Oswaldo Cruz/Fiocruz).</li>
+          <li><span></span> Experiencia en contratación pública y análisis técnico de propuestas.</li>
+        </ul>
+      </div>
+      <aside class="video-card" aria-label="Presentación en video">
+        <div class="video-aspect">
+          <!-- Reemplaza assets/pitch.mp4 y assets/pitch_poster.jpg por tus archivos -->
+          <video controls preload="metadata" poster="assets/pitch_poster.jpg">
+            <source src="assets/pitch.mp4" type="video/mp4" />
+            Tu navegador no soporta video HTML5.
+          </video>
+        </div>
+        <div class="video-meta">
+          <span>Pitch (59 s)</span>
+          <a href="#contacto" aria-label="Ir a contacto">Contacto</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="menu" aria-labelledby="menu-title">
+      <h2 id="menu-title">Explora el portafolio</h2>
+      <div class="grid">
+        <a class="card" href="#cooperacion">
+          <div class="thumb"><img loading="lazy" src="assets/thumb_cooperacion.jpg" alt="Mapa y datos geoespaciales"/></div>
+          <h3>Cooperación internacional</h3>
+          <p>Consultoría UNESCO/IPHAN — Mapa coroplético y repositorio de riesgos para el patrimonio cultural.</p>
+        </a>
+        <a class="card" href="#organizacion">
+          <div class="thumb"><img loading="lazy" src="assets/thumb_organizacional.jpg" alt="Trabajo en equipo y planificación"/></div>
+          <h3>Desafíos organizacionales</h3>
+          <p>Planeamiento estratégico y mejora del clima organizacional — IPHAN/SC.</p>
+        </a>
+        <a class="card" href="#politicas">
+          <div class="thumb"><img loading="lazy" src="assets/thumb_politicas.jpg" alt="Edificio institucional"/></div>
+          <h3>Políticas públicas</h3>
+          <p>Actuación en MinC y Fiocruz — diagnósticos, normativas y sostenibilidad.</p>
+        </a>
+        <a class="card" href="#manos">
+          <div class="thumb"><img loading="lazy" src="assets/thumb_manos.jpg" alt="Restauración en obra"/></div>
+          <h3>Manos a la obra</h3>
+          <p>Restauración y conservación en campo: bienes muebles e integrados.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="cooperacion">
+      <h2>Cooperación internacional</h2>
+      <p>Diseño e implementación de un ecosistema de datos para la gestión de riesgos del patrimonio cultural brasileño: integración de capas SICG/IPHAN, IBGE, CEMADEN, ANA, INPE, S2ID y desarrollo de mapa coroplético y repositorio de acceso público.</p>
+      <div class="gallery">
+        <figure>
+          <img loading="lazy" src="assets/coop_1.jpg" alt="Mapa coroplético en pantalla"/>
+          <figcaption>Mapa coroplético — visualización por biomas, riesgos e indicadores.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/coop_2.jpg" alt="Diagrama de flujo de datos"/>
+          <figcaption>Pipeline de datos y control de calidad.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/coop_3.jpg" alt="Reunión con socios institucionales"/>
+          <figcaption>Interlocución con equipos técnicos y decisores.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="organizacion">
+      <h2>Desafíos organizacionales</h2>
+      <p>Planeamiento estratégico (BSC), diagnóstico organizacional, evaluación 360, manuales operativos y mejora de comunicación interna en IPHAN/SC.</p>
+      <div class="gallery">
+        <figure>
+          <img loading="lazy" src="assets/org_1.jpg" alt="Panel de indicadores"/>
+          <figcaption>Indicadores y resultados clave.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/org_2.jpg" alt="Taller de trabajo"/>
+          <figcaption>Talleres de co-construcción con el equipo.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/org_3.jpg" alt="Documento institucional"/>
+          <figcaption>Manual del colaborador y guías de embarque/desembarque.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="politicas">
+      <h2>Políticas públicas</h2>
+      <p>Diagnósticos de sostenibilidad en laboratorios de conservación (Fiocruz/COC), implementación de prácticas del programa Our Collections Matter (ICCROM) y análisis normativo aplicado a bienes culturales.</p>
+      <div class="gallery">
+        <figure>
+          <img loading="lazy" src="assets/pol_1.jpg" alt="Laboratorio de conservación"/>
+          <figcaption>Buenas prácticas en laboratorios — gestión de residuos y eficiencia.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/pol_2.jpg" alt="Documento técnico"/>
+          <figcaption>Productos técnicos y guías de implementación.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/pol_3.jpg" alt="Presentación pública"/>
+          <figcaption>Articulación con instituciones públicas.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="manos">
+      <h2>Manos a la obra</h2>
+      <p>Intervenciones en campo: restauración de bienes muebles e integrados, evaluación de riesgos y protocolos de salvamento en situaciones de emergencia.</p>
+      <div class="gallery">
+        <figure>
+          <img loading="lazy" src="assets/obra_1.jpg" alt="Detalle de restauración"/>
+          <figcaption>Conservación de materiales y diagnóstico técnico.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/obra_2.jpg" alt="Trabajo en altura"/>
+          <figcaption>Obras en iglesias y edificios patrimoniales.</figcaption>
+        </figure>
+        <figure>
+          <img loading="lazy" src="assets/obra_3.jpg" alt="Equipo de trabajo"/>
+          <figcaption>Trabajo colaborativo y seguridad.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>Correo: <a href="mailto:edu@ejemplo.com">edu@ejemplo.com</a> · LinkedIn: <a href="https://www.linkedin.com/in/eduardoferreiramoura" rel="noopener" target="_blank">/in/eduardoferreiramoura</a></p>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Eduardo Ferreira Moura — Portafolio
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
