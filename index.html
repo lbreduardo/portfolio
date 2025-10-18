@@ -138,15 +138,17 @@
     }
 
     // Balloon (tooltip HTML)
-    function balloonHTML(rec){
-      const img = rec.image ? `<img src="assets/${rec.image}" alt="${rec.title}">` : '';
-      const star = rec.star === '1' || rec.star === 'true' ? ' ★' : '';
+    function balloonHTML(rec, ttId){
+      const imgs = Array.isArray(rec._imgs) ? rec._imgs : [];
+      const imgTag = imgs.length ? `<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}">` : '';
+      const star = rec.star === true ? ' ★' : '';
       const catLabel = CATEGORIES[rec.category]?.label || rec.category;
-      return `<div class="balloon">${img}<div><h4>${rec.title}${star}</h4><p>${rec.text || ''}</p><div class="tag">${rec.city || ''}${rec.country? ', '+rec.country:''} · ${catLabel}</div></div></div>`;
+      return `<div class="balloon">${imgTag}<div><h4>${rec.title}${star}</h4><p>${rec.text || ''}</p><div class=\"tag\">${rec.city || ''}${rec.country? ', '+rec.country:''} · ${catLabel}</div></div></div>`;
     }
 
     // Gestión de marcadores para filtrar luego
     const allMarkers = [];
+    const rotationTimers = new Map(); // marker -> interval id
 
     // Cargar CSV de experiencias
     Papa.parse('assets/experiences.csv', {
@@ -159,11 +161,24 @@
           const lat = parseFloat(r.lat), lon = parseFloat(r.lon);
           const cat = (r.category||'').trim();
           if(!isFinite(lat) || !isFinite(lon) || !CATEGORIES[cat]) return;
+          // Parse image list: prefer `images` (| ; ,), fallback to single `image`
+          let imgs = [];
+          if (r.images && String(r.images).trim()) {
+            imgs = String(r.images).split(/\||;|,/).map(s=>s.trim()).filter(Boolean);
+          }
+          if ((!imgs || imgs.length===0) && r.image) {
+            imgs = [String(r.image).trim()];
+          }
+
           const starred = String(r.star||'').trim().toLowerCase();
           const isStar = (starred === '1' || starred === 'true' || starred === 'yes' || starred === 'y');
           const m = L.marker([lat, lon], { icon: markerIcon(cat, isStar) });
-          m.rec = { ...r, category: cat, star: isStar };
-          m.bindTooltip(balloonHTML(m.rec), { permanent:false, direction:'top', className:'experience', sticky:true, opacity:0.98 });
+          m.rec = { ...r, category: cat, star: isStar, _imgs: imgs };
+          const ttId = `tt_${idx}_${Date.now()}`;
+          m._ttId = ttId;
+          m.bindTooltip(balloonHTML(m.rec, ttId), { permanent:false, direction:'top', className:'experience', sticky:true, opacity:0.98 });
+          m.on('tooltipopen', ()=> startImageRotation(m));
+          m.on('tooltipclose', ()=> stopImageRotation(m));
           m.on('click', ()=>{ m.openTooltip(); });
           cluster.addLayer(m);
           allMarkers.push(m);
@@ -202,24 +217,40 @@
 
     // Year badge
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // ====== Image rotation helpers ======
+    function startImageRotation(marker){
+      stopImageRotation(marker);
+      const imgs = marker.rec._imgs || [];
+      if(imgs.length <= 1) return; // no rotation needed
+      let idx = 0;
+      const imgEl = document.getElementById(`${marker._ttId}_img`);
+      if(!imgEl) return;
+      const id = setInterval(()=>{
+        idx = (idx + 1) % imgs.length;
+        imgEl.src = `assets/${imgs[idx]}`;
+      }, 1400); // troca a cada 1,4 s
+      rotationTimers.set(marker, id);
+    }
+    function stopImageRotation(marker){
+      const id = rotationTimers.get(marker);
+      if(id){ clearInterval(id); rotationTimers.delete(marker); }
+    }
   </script>
 
   <!--
   ==========================
   FORMATO DEL CSV (assets/experiences.csv)
   ==========================
-  id,city,country,lat,lon,category,title,text,image,star
-  1,Valencia,España,39.4699,-0.3763,coop,UNESCO/IPHAN – Mapa de riesgos,"Diseño del mapa coroplético y repositorio público; integración de capas SICG/IPHAN, IBGE, CEMADEN, S2ID.",coop_1.jpg,1
-  2,Rio de Janeiro,Brasil,-22.9068,-43.1729,pol,Fiocruz – Sostenibilidad,"Diagnósticos en laboratorios, hub OCM/ICCROM, implementación de buenas prácticas.",pol_1.jpg,0
-  3,Florianópolis,Brasil,-27.5949,-48.5482,org,IPHAN/SC – Planeamiento,"BSC, evaluación 360, manuales operativos y mejora de comunicación interna.",org_1.jpg,1
-  4,Belo Horizonte,Brasil,-19.9167,-43.9345,mano,Obras en estuco – Iglesia Sagrado Coração,"Conservación en obra, protocolos de seguridad y documentación técnica.",obra_1.jpg,0
-  5,Brasília,Brasil,-15.7939,-47.8828,pol,MinC – Análisis de propuestas PRONAC,"Evaluación técnica en patrimonio cultural, humanidades, museos y memoria.",pol_2.jpg,0
+  id,city,country,lat,lon,category,title,text,image,images,star
 
   Notas:
+  - Puedes usar **image** (una sola) o **images** (lista separada por `|`, `;` o `,`).
+  - Ejemplo de images: `coop_1a.jpg|coop_1b.jpg|coop_1c.jpg`.
   - category ∈ {coop, org, pol, mano}
   - star: 1/true/yes para destacar experiencias clave para OEI.
-  - image: nombre de archivo dentro de /assets/ (opcional).
-  - múltiples experiencias en la misma ciudad se manejan por clustering automáticamente.
+  - Los archivos deben estar dentro de /assets/.
+  - Múltiples experiencias en la misma ciudad se manejan por clustering automáticamente.
   -->
 </body>
 </html>
