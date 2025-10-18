@@ -357,13 +357,26 @@
       });
     }
 
-    function balloonHTML(rec, ttId){
-      const imgs = Array.isArray(rec.images) ? rec.images : [];
-      const imgTag = imgs.length ? `<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}">` : '';
-      const star = rec.star ? ' ★' : '';
-      const catLabel = CATEGORIES[rec.category]?.label || rec.category;
-      return `<div class="balloon">${imgTag}<div><h4>${rec.title}${star}</h4><p>${rec.text||''}</p><div class="tag">${rec.city}${rec.country?', '+rec.country:''} · ${catLabel}</div></div></div>`;
-    }
+    function balloonHTML(rec, ttId) {
+  const imgs = Array.isArray(rec.images) ? rec.images : [];
+  const imgTag = imgs.length ? 
+    `<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}" style="width:100%;height:auto;">` : 
+    '<div style="width:180px;height:180px;background:#1f2937;border-radius:12px;display:grid;place-items:center;color:#9ca3af;">Sem imagem</div>';
+  
+  const star = rec.star ? ' <span style="color:var(--star)">★</span>' : '';
+  const catLabel = CATEGORIES[rec.category]?.label || rec.category;
+  
+  return `
+    <div class="balloon">
+      ${imgTag}
+      <div>
+        <h4>${rec.title}${star}</h4>
+        <p>${rec.text || ''}</p>
+        <div class="tag">${rec.city}${rec.country ? ', ' + rec.country : ''} · ${catLabel}</div>
+      </div>
+    </div>
+  `;
+}
 
     function startImageRotation(marker){
       stopImageRotation(marker);
