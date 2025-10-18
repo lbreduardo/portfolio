@@ -64,61 +64,102 @@
       background:var(--star); color:#fff;
     }
 
-    /* Tooltip ~2×, translúcido e com quebras corretas */
-    .leaflet-tooltip.experience{
-      background: rgba(17, 24, 39, 0.85);
+    /* Tooltip - CORREÇÃO COMPLETA */
+    .leaflet-tooltip.experience {
+      background: rgba(17, 24, 39, 0.95);
       color: #e5e7eb;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-      max-width: 640px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+      max-width: 640px !important; /* Força a largura máxima */
+      width: auto !important; /* Permite expansão */
+      min-width: 400px; /* Largura mínima */
       padding: 16px 20px;
-      overflow: hidden;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
+      white-space: normal !important; /* Permite quebra de linha */
+      overflow: visible !important; /* Permite conteúdo expandir */
     }
-    .balloon{
+
+    .balloon {
       display: grid;
       grid-template-columns: 180px 1fr;
-      gap: 14px;
+      gap: 16px;
+      align-items: start;
       max-width: 600px;
-      align-items: flex-start;
+      width: 100%;
     }
-    .balloon > div { min-width: 0; }
-    .balloon img{
+
+    .balloon img {
       width: 180px;
       height: 180px;
       object-fit: cover;
       border-radius: 12px;
-    }
-    .balloon h4{
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-      line-height: 1.2;
-    }
-    .balloon p{
-      margin: 0;
-      font-size: .95rem;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      hyphens: auto;
-      padding-right: 10px; /* folga até a borda direita */
-    }
-    .balloon .tag{
-      margin-top: 10px;
-      font-size: .9rem;
-      opacity: .95;
+      flex-shrink: 0; /* Impede que a imagem encolha */
     }
 
-    @media (max-width: 720px){
-      .leaflet-tooltip.experience{ max-width: 560px; }
-      .balloon{ grid-template-columns: 160px 1fr; max-width: 520px; }
-      .balloon img{ width:160px; height:160px; }
+    .balloon > div {
+      min-width: 0; /* Permite que o texto quebre */
+      display: flex;
+      flex-direction: column;
     }
-    @media (max-width: 480px){
-      .leaflet-tooltip.experience{ max-width: 92vw; padding: 14px 16px; }
-      .balloon{ grid-template-columns: 1fr; max-width: 100%; }
-      .balloon img{ width: 100%; height: 200px; }
+
+    .balloon h4 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      line-height: 1.3;
+      color: #f8fafc;
+      font-weight: 600;
+    }
+
+    .balloon p {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #e5e7eb;
+      overflow-wrap: break-word;
+      word-break: normal;
+      flex-grow: 1; /* Ocupa espaço disponível */
+    }
+
+    .balloon .tag {
+      margin-top: auto; /* Empurra para baixo */
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      opacity: 0.9;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Media Queries Aprimoradas */
+    @media (max-width: 720px) {
+      .leaflet-tooltip.experience { 
+        max-width: 560px !important;
+        min-width: 350px;
+      }
+      .balloon { 
+        grid-template-columns: 160px 1fr; 
+        gap: 14px;
+      }
+      .balloon img { 
+        width: 160px; 
+        height: 160px; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .leaflet-tooltip.experience { 
+        max-width: 90vw !important;
+        min-width: 280px;
+        padding: 14px 16px;
+      }
+      .balloon { 
+        grid-template-columns: 1fr; 
+      }
+      .balloon img { 
+        width: 100%; 
+        height: 200px; 
+        margin-bottom: 8px;
+      }
     }
 
     .badge{
@@ -167,59 +208,59 @@
       mano:{label:'Manos',color:'var(--mano)'}
     };
 
-    // Dados hardcoded (substitua/edite à vontade). 3 imagens por item.
+    // Dados atualizados com os textos revisados
     const DATA = [
       {id:1, city:"São Luiz do Paraitinga", country:"Brasil", lat:-23.223, lon:-45.317, category:"coop", star:true,
         title:"Misión de Campo PRODOC UNESCO/IPHAN 914BRZ4018",
-        text:"Comprender las estrategias locales tras la inundación de 2010. Referencia para políticas de prevención y mitigación de desastres sobre el patrimonio.",
+        text:"Comprender las estrategias locales tras la inundación de 2010. La experiencia sirvió como referencia para el diseño de políticas públicas de prevención y mitigación de desastres sobre el patrimonio cultural.",
         images:["slp_2010_a.jpg","slp_2010_b.jpg","slp_2010_c.jpg"]},
       {id:2, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"coop", star:false,
         title:"Misión de Campo PRODOC UNESCO/IPHAN 914BRZ4018",
-        text:"Contacto con Defensa Civil para conocer monitoreo de movimientos de masa y presas en alerta. Incorporado a productos técnicos del PRODOC.",
+        text:"Contacto con la Defensa Civil municipal para conocer prácticas de monitoreo de movimientos de masa y presas en alerta. La experiencia fue incorporada a los productos técnicos de gestión de riesgos del PRODOC UNESCO/IPHAN.",
         images:["op_defesa_a.jpg","op_defesa_b.jpg","op_defesa_c.jpg"]},
       {id:3, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
         title:"Restauración de objetos en Ouro Preto",
-        text:"Conservación de bienes muebles e integrados en el centro histórico.",
+        text:"Conservación de bienes muebles e integrados en el centro histórico de Ouro Preto.",
         images:["op_manos_obj_a.jpg","op_manos_obj_b.jpg","op_manos_obj_c.jpg"]},
       {id:4, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
         title:"Conservación de Inmueble Colonial – Brumas Hostel",
-        text:"Mantenimiento y conservación preventiva de una casa del siglo XVIII adaptada como hospedaje.",
+        text:"Responsable de la manutención y conservación preventiva de una casa del siglo XVIII adaptada como hospedaje.",
         images:["op_brumas_a.jpg","op_brumas_b.jpg","op_brumas_c.jpg"]},
       {id:5, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
         title:"Formación técnica – FAOP",
-        text:"Curso técnico en Conservación de Bienes Culturales en la tradicional FAOP.",
+        text:"Curso técnico en Conservación de Bienes Culturales en la tradicional Fundación de Arte de Ouro Preto.",
         images:["op_faop_a.jpg","op_faop_b.jpg","op_faop_c.jpg"]},
       {id:6, city:"Florianópolis", country:"Brasil", lat:-27.595, lon:-48.549, category:"org", star:true,
         title:"Planificación estratégica y clima organizacional",
-        text:"BSC, diagnóstico organizacional y evaluación 360°. Fortalecimiento del trabajo en equipo y clima institucional en IPHAN/SC.",
+        text:"Desarrollo y mediación de planificación estratégica con la metodología BSC, diagnóstico organizacional y evaluación 360°. La actuación fortaleció el trabajo en equipo y el clima institucional de la superintendencia.",
         images:["fln_bsc_a.jpg","fln_bsc_b.jpg","fln_bsc_c.jpg"]},
       {id:7, city:"Belo Horizonte", country:"Brasil", lat:-19.917, lon:-43.934, category:"mano", star:false,
-        title:"Parroquia Sagrado Corazón – obras de emergencia",
-        text:"Conservación de estucos en templo protegido a nivel estatal de la comunidad sirio-cristiana.",
+        title:"Parroquia Sagrado Corazón de Jesús – obras de emergencia",
+        text:"Conservación de estucos en un templo protegido a nivel estatal, perteneciente a la comunidad sirio-cristiana. Trabajo marcado por la integración entre patrimonio cultural y acogida de comunidades refugiadas.",
         images:["bh_paroquia_a.jpg","bh_paroquia_b.jpg","bh_paroquia_c.jpg"]},
       {id:8, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:true,
         title:"Consultoría UNESCO/IPHAN – PRODOC",
-        text:"Mapa coroplético y repositorio de riesgos. Integración de datos nacionales y fortalecimiento de la gestión de riesgos.",
+        text:"Consultor responsable del desarrollo del Mapa Coroplético y del Repositorio de Riesgos al Patrimonio Cultural Brasileño. Proyecto orientado a la integración de datos nacionales y al fortalecimiento de una cultura de gestión de riesgos.",
         images:["bsb_prodoc_a.jpg","bsb_prodoc_b.jpg","bsb_prodoc_c.jpg"]},
       {id:9, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
         title:"Congreso Nacional – vulnerabilidades pos-8/01",
-        text:"Análisis in situ de vulnerabilidades. Aportes para protocolos institucionales de protección.",
+        text:"Análisis in situ de vulnerabilidades en el acervo y en los espacios de conservación tras los eventos del 8 de enero. Aportes técnicos para la integración de protocolos de protección institucional.",
         images:["bsb_congresso_a.jpg","bsb_congresso_b.jpg","bsb_congresso_c.jpg"]},
       {id:10, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
         title:"Palacio Itamaraty – conservación de acervos",
-        text:"Levantamiento de vulnerabilidades y prácticas de conservación.",
+        text:"Visita técnica al Itamaraty para levantar vulnerabilidades y prácticas de conservación. Integración de los resultados al panorama nacional de riesgos del patrimonio cultural.",
         images:["bsb_itamaraty_a.jpg","bsb_itamaraty_b.jpg","bsb_itamaraty_c.jpg"]},
       {id:11, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
         title:"CENAD – reunión multilateral",
-        text:"Articulación IPHAN–CENAD–UNESCO para la prevención de desastres que afectan bienes culturales.",
+        text:"Participación en reunión multilateral entre IPHAN, CENAD y UNESCO para articular políticas conjuntas de prevención de desastres que afectan bienes culturales.",
         images:["bsb_cenad_a.jpg","bsb_cenad_b.jpg","bsb_cenad_c.jpg"]},
       {id:12, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
         title:"Agencia Nacional de Aguas – asociación estratégica",
-        text:"Integración de datos críticos sobre presas e inundaciones al sistema de monitoreo.",
+        text:"Articulación institucional para integrar datos críticos sobre presas e inundaciones al sistema de monitoreo del patrimonio cultural en riesgo.",
         images:["bsb_ana_a.jpg","bsb_ana_b.jpg","bsb_ana_c.jpg"]},
       {id:13, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"pol", star:true,
         title:"Ministerio de Cultura – evaluador técnico",
-        text:"Evaluación PRONAC de proyectos de patrimonio, humanidades, museos y memoria.",
+        text:"Actuación como evaluador en el PRONAC, analizando proyectos de patrimonio cultural, humanidades, museos y memoria. Experiencia que reafirma el compromiso con las políticas públicas de fomento cultural.",
         images:["bsb_minc_a.jpg","bsb_minc_b.jpg","bsb_minc_c.jpg"]},
       {id:14, city:"Valencia", country:"España", lat:39.4699, lon:-0.3763, category:"pol", star:true,
         title:"Universitat Politècnica de València – doctorado",
@@ -227,91 +268,91 @@
         images:["vlc_upv_a.jpg","vlc_upv_b.jpg","vlc_upv_c.jpg"]},
       {id:15, city:"Roma", country:"Italia", lat:41.9028, lon:12.4964, category:"coop", star:false,
         title:"ICCROM – Asamblea General 2025",
-        text:"Delegación que representa al IPHAN. Cooperación internacional y resiliencia patrimonial.",
+        text:"Integrante de la delegación que representará al IPHAN en la Asamblea General del ICCROM (10-12-25). Participación en instancias internacionales de cooperación y resiliencia patrimonial.",
         images:["rom_iccrom_a.jpg","rom_iccrom_b.jpg","rom_iccrom_c.jpg"]},
       {id:16, city:"Ciudad de Panamá", country:"Panamá", lat:8.9833, lon:-79.5167, category:"org", star:false,
         title:"Conferencia APOYO – gestión institucional",
-        text:"Relevamiento nacional de espacios de conservación en la administración pública (con Fiocruz).",
+        text:"Presentación, junto a Fiocruz, de un relevamiento nacional de espacios de conservación en la administración pública. La publicación fue seleccionada para convertirse en capítulo de libro.",
         images:["pty_apoyo_a.jpg","pty_apoyo_b.jpg","pty_apoyo_c.jpg"]},
       {id:17, city:"Guadalajara", country:"México", lat:20.6736, lon:-103.344, category:"pol", star:false,
-        title:"Universidad de Guadalajara – “Conservar e Punir”",
-        text:"Publicación A2 sobre políticas públicas brasileñas de conservación.",
+        title:"Universidad de Guadalajara – artículo 'Conservar e Punir'",
+        text:"Publicación en revista académica A2 sobre las políticas públicas brasileñas de conservación. Reflexión crítica sobre poder, intervención y autenticidad en la práctica del restauro.",
         images:["gdl_paper_a.jpg","gdl_paper_b.jpg","gdl_paper_c.jpg"]},
       {id:18, city:"Santiago de Chile", country:"Chile", lat:-33.4489, lon:-70.6693, category:"org", star:false,
-        title:"SICP – seminario de conservación de papel",
-        text:"Levantamiento nacional de laboratorios públicos, foco en papel.",
+        title:"Seminario internacional de conservación de papel",
+        text:"Presentación del relevamiento nacional de laboratorios de conservación pública, con enfoque en papel. Evento SICP 2025: fortalecimiento de redes técnicas latinoamericanas.",
         images:["scl_sicp_a.jpg","scl_sicp_b.jpg","scl_sicp_c.jpg"]},
       {id:19, city:"Madrid", country:"España", lat:40.4168, lon:-3.7038, category:"org", star:true,
         title:"OEI – consolidación internacional",
-        text:"Establecimiento en Madrid para ampliar la actuación iberoamericana en cooperación y patrimonio.",
+        text:"Búsqueda de enraizamiento institucional en el ámbito iberoamericano. Establecimiento en Madrid para ampliar y madurar la actuación en cooperación internacional.",
         images:["mad_oei_a.jpg","mad_oei_b.jpg","mad_oei_c.jpg"]},
       {id:20, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"org", star:false,
-        title:"Grupo Libra – selección Proyecto Asia",
-        text:"Reclutamiento para 180 posiciones operativas. Gestión de RH y eficiencia organizacional.",
+        title:"Grupo Libra – selección de personal Proyecto Asia",
+        text:"Procesos de reclutamiento para 180 posiciones operativas. Experiencia en gestión de recursos humanos y eficiencia organizacional.",
         images:["rio_libra_a.jpg","rio_libra_b.jpg","rio_libra_c.jpg"]},
       {id:21, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"org", star:false,
         title:"UFRJ – formación en Psicología",
-        text:"Procesos organizacionales y comunicación institucional aplicados a gestión de equipos.",
+        text:"Formación en Psicología con énfasis en procesos organizacionales y comunicación institucional. Base teórica aplicada posteriormente a la gestión de equipos en el IPHAN y otras instituciones.",
         images:["rio_ufrj_a.jpg","rio_ufrj_b.jpg","rio_ufrj_c.jpg"]},
       {id:22, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"coop", star:true,
-        title:"Casa de Oswaldo Cruz – hub nacional OCM (ICCROM)",
-        text:"Sostenibilidad en laboratorios de conservación. COC como hub nacional del programa.",
+        title:"Casa de Oswaldo Cruz – hub nacional OCM ICCROM",
+        text:"Investigación sobre sostenibilidad en laboratorios de conservación. Proyecto Our Collections Matter (ICCROM) que convirtió la COC en hub nacional del programa.",
         images:["rio_coc_a.jpg","rio_coc_b.jpg","rio_coc_c.jpg"]},
       {id:23, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"pol", star:false,
         title:"IPHAN – maestría en preservación",
-        text:"Relaciones de poder e intervención. Aporte crítico al marco normativo de conservación.",
+        text:"Investigación sobre relaciones de poder y intervención en el patrimonio cultural. Aportó análisis crítico al marco normativo brasileño en el sector cultural.",
         images:["rio_mestrado_a.jpg","rio_mestrado_b.jpg","rio_mestrado_c.jpg"]},
       {id:24, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"mano", star:false,
         title:"Biblioteca Nacional – encuadernador",
-        text:"Encuadernación y conservación de obras raras.",
+        text:"Trabajo en encuadernación y conservación de obras raras.",
         images:["rio_bn_a.jpg","rio_bn_b.jpg","rio_bn_c.jpg"]},
       {id:25, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"mano", star:false,
-        title:"CCBB – restaurador",
-        text:"Restauración y conservación de obras del acervo del CCBB.",
+        title:"Centro Cultural Banco do Brasil – restaurador",
+        text:"Restauración y conservación de obras raras del acervo del CCBB.",
         images:["rio_ccbb_a.jpg","rio_ccbb_b.jpg","rio_ccbb_c.jpg"]},
       {id:26, city:"Pelotas", country:"Brasil", lat:-31.771, lon:-52.342, category:"coop", star:false,
         title:"UFPel/IPHAN-RS – articulación local",
-        text:"Coordinación con universidades e IPHAN para respuestas a las inundaciones de 2024.",
+        text:"Reuniones con universidades y oficinas del IPHAN en el sur del país para coordinar respuestas a las inundaciones de 2024 y fortalecer redes regionales de conservación.",
         images:["pel_artic_a.jpg","pel_artic_b.jpg","pel_artic_c.jpg"]},
       {id:27, city:"Porto Alegre", country:"Brasil", lat:-30.034, lon:-51.229, category:"coop", star:false,
         title:"IPHAN-RS – respuesta institucional ante inundaciones",
-        text:"Análisis de daños y coordinación interinstitucional para mitigación y recuperación.",
+        text:"Análisis de daños en instituciones de memoria afectadas por las cheias de 2024. Coordinación interinstitucional para mitigación y recuperación.",
         images:["poa_cheias_a.jpg","poa_cheias_b.jpg","poa_cheias_c.jpg"]},
       {id:28, city:"São José dos Campos", country:"Brasil", lat:-23.223, lon:-45.9, category:"coop", star:false,
         title:"CEMADEN – articulación de datos",
-        text:"Intercambio de datos IPHAN–CEMADEN. Integración de alertas hidrometeorológicas.",
+        text:"Establecimiento de flujo de intercambio de datos entre IPHAN y CEMADEN. Integración de alertas hidrometeorológicas en sistemas patrimoniales.",
         images:["sjc_cemaden_a.jpg","sjc_cemaden_b.jpg","sjc_cemaden_c.jpg"]},
       {id:29, city:"Mariana", country:"Brasil", lat:-20.378, lon:-43.416, category:"coop", star:false,
-        title:"Bento Rodrigues – restauración posdesastre",
-        text:"Protocolos de reconstrucción y preservación de la memoria tras rompimiento de presa.",
+        title:"Bento Rodrigues – restauración post-desastre",
+        text:"Visita técnica a la zona afectada por el rompimiento de barragem. Estudio de protocolos de reconstrucción y preservación de la memoria colectiva.",
         images:["mar_bento_a.jpg","mar_bento_b.jpg","mar_bento_c.jpg"]},
       {id:30, city:"Pirenópolis", country:"Brasil", lat:-15.852, lon:-48.958, category:"coop", star:false,
         title:"ETEC/IPHAN-GO – encuentros multilaterales",
-        text:"Reuniones entre IPHAN y municipalidad para gestión del patrimonio ante desastres.",
+        text:"Facilitación de reuniones entre IPHAN y la municipalidad para fortalecer la gestión del patrimonio ante desastres naturales.",
         images:["pir_etec_a.jpg","pir_etec_b.jpg","pir_etec_c.jpg"]},
       {id:31, city:"Goiás Velho", country:"Brasil", lat:-15.934, lon:-50.14, category:"coop", star:false,
         title:"ETEC/IPHAN-GO – traslado preventivo de bienes",
-        text:"Evacuación de bienes culturales durante crecidas del río Vermelho.",
+        text:"Documentación de procedimientos locales de evacuación de bienes culturales durante cheias del río Vermelho. Buenas prácticas comunitarias de conservación preventiva.",
         images:["gv_trad_a.jpg","gv_trad_b.jpg","gv_trad_c.jpg"]},
       {id:32, city:"Goiânia", country:"Brasil", lat:-16.686, lon:-49.264, category:"coop", star:false,
         title:"IPHAN-GO – diagnóstico institucional",
-        text:"Mapeo de desafíos y capacidades institucionales con socios locales.",
+        text:"Reuniones con servidores y socios locales para comprender desafíos y capacidades institucionales en la región centro-oeste.",
         images:["gyn_iphan_a.jpg","gyn_iphan_b.jpg","gyn_iphan_c.jpg"]},
       {id:33, city:"Cuiabá", country:"Brasil", lat:-15.601, lon:-56.098, category:"coop", star:false,
         title:"IPHAN-MT – articulación multilateral",
-        text:"Encuentro entre IPHAN, secretarías, UFMT y cantero modelo (gobernanza participativa).",
+        text:"Coordinación de encuentro entre IPHAN, secretarías municipales, UFMT y cantero modelo. Ejemplo de gobernanza participativa en preservación.",
         images:["cba_multi_a.jpg","cba_multi_b.jpg","cba_multi_c.jpg"]},
       {id:34, city:"Rio Branco", country:"Brasil", lat:-9.974, lon:-67.809, category:"coop", star:false,
         title:"IPHAN-AC – coordinación local",
-        text:"Prevención de riesgos sobre el patrimonio amazónico con actores regionales.",
+        text:"Reuniones con la superintendencia y actores culturales del Acre para fortalecer la prevención de riesgos sobre el patrimonio amazónico.",
         images:["rb_ac_a.jpg","rb_ac_b.jpg","rb_ac_c.jpg"]},
       {id:35, city:"Xapuri", country:"Brasil", lat:-10.651, lon:-68.507, category:"coop", star:true,
         title:"Casa de Chico Mendes – prevención de inundaciones",
-        text:"Diagnóstico de vulnerabilidad y propuestas de protección de emergencia.",
+        text:"Diagnóstico de vulnerabilidad del sitio histórico frente a inundaciones estacionales. Elaboración de propuestas para políticas públicas de protección emergencial.",
         images:["xap_casa_a.jpg","xap_casa_b.jpg","xap_casa_c.jpg"]},
       {id:36, city:"Xapuri", country:"Brasil", lat:-10.651, lon:-68.507, category:"coop", star:false,
-        title:"Reserva Extractivista Chico Mendes – diálogo comunitario",
-        text:"Estrategias de preservación cultural y ambiental junto a la familia y comunidades locales.",
+        title:"Reserva Extrativista Chico Mendes – diálogo comunitario",
+        text:"Encuentro con la familia de Chico Mendes y comunidades locales para debatir estrategias de preservación cultural y ambiental del territorio.",
         images:["xap_reserva_a.jpg","xap_reserva_b.jpg","xap_reserva_c.jpg"]}
     ];
 
@@ -327,6 +368,22 @@
     // ====== Pontos estáticos (sem cluster) ======
     const markers = [];
     const rotationTimers = new Map();
+
+    // Forçar redimensionamento dos tooltips
+    map.on('tooltipopen', function(e) {
+      const tooltip = e.tooltip.getElement();
+      
+      // Pequeno delay para garantir que o conteúdo foi renderizado
+      setTimeout(() => {
+        if (tooltip) {
+          const content = tooltip.querySelector('.balloon');
+          if (content) {
+            const rect = content.getBoundingClientRect();
+            tooltip.style.width = Math.min(rect.width + 40, 640) + 'px';
+          }
+        }
+      }, 10);
+    });
 
     // jitter leve por id (separa pontos da mesma cidade)
     function jitter(lat, lon, id){
@@ -358,25 +415,25 @@
     }
 
     function balloonHTML(rec, ttId) {
-  const imgs = Array.isArray(rec.images) ? rec.images : [];
-  const imgTag = imgs.length ? 
-    `<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}" style="width:100%;height:auto;">` : 
-    '<div style="width:180px;height:180px;background:#1f2937;border-radius:12px;display:grid;place-items:center;color:#9ca3af;">Sem imagem</div>';
-  
-  const star = rec.star ? ' <span style="color:var(--star)">★</span>' : '';
-  const catLabel = CATEGORIES[rec.category]?.label || rec.category;
-  
-  return `
-    <div class="balloon">
-      ${imgTag}
-      <div>
-        <h4>${rec.title}${star}</h4>
-        <p>${rec.text || ''}</p>
-        <div class="tag">${rec.city}${rec.country ? ', ' + rec.country : ''} · ${catLabel}</div>
-      </div>
-    </div>
-  `;
-}
+      const imgs = Array.isArray(rec.images) ? rec.images : [];
+      const imgTag = imgs.length ? 
+        `<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}" style="width:100%;height:auto;">` : 
+        '<div style="width:180px;height:180px;background:#1f2937;border-radius:12px;display:grid;place-items:center;color:#9ca3af;">Sem imagem</div>';
+      
+      const star = rec.star ? ' <span style="color:var(--star)">★</span>' : '';
+      const catLabel = CATEGORIES[rec.category]?.label || rec.category;
+      
+      return `
+        <div class="balloon">
+          ${imgTag}
+          <div>
+            <h4>${rec.title}${star}</h4>
+            <p>${rec.text || ''}</p>
+            <div class="tag">${rec.city}${rec.country ? ', ' + rec.country : ''} · ${catLabel}</div>
+          </div>
+        </div>
+      `;
+    }
 
     function startImageRotation(marker){
       stopImageRotation(marker);
@@ -391,6 +448,7 @@
       }, 1400);
       rotationTimers.set(marker, id);
     }
+    
     function stopImageRotation(marker){
       const id = rotationTimers.get(marker);
       if(id){ clearInterval(id); rotationTimers.delete(marker); }
@@ -422,182 +480,6 @@
     fitToData();
 
     document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
-
-
-  <script>
-    const CATEGORIES = {
-      coop:{label:'Cooperación',color:'var(--coop)'},
-      org:{label:'Organizacional',color:'var(--org)'},
-      pol:{label:'Políticas',color:'var(--pol)'},
-      mano:{label:'Manos',color:'var(--mano)'}
-    };
-
-    // Dados hardcoded (substitua/edite à vontade). 3 imagens por item.
-    // NOTE: Ajustei coordenadas corretas para Espanha e Brasil; revise se quiser mais precisão.
-    const DATA = [
-      {id:1, city:"São Luiz do Paraitinga", country:"Brasil", lat:-23.223, lon:-45.317, category:"coop", star:true,
-        title:"Misión de Campo PRODOC UNESCO/IPHAN 914BRZ4018",
-        text:"Comprender las estrategias locales tras la inundación de 2010. Referencia para políticas de prevención y mitigación de desastres sobre el patrimonio.",
-        images:["slp_2010_a.jpg","slp_2010_b.jpg","slp_2010_c.jpg"]},
-      {id:2, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"coop", star:false,
-        title:"Misión de Campo PRODOC UNESCO/IPHAN 914BRZ4018",
-        text:"Contacto con Defensa Civil para conocer monitoreo de movimientos de masa y presas en alerta. Incorporado a productos técnicos del PRODOC.",
-        images:["op_defesa_a.jpg","op_defesa_b.jpg","op_defesa_c.jpg"]},
-      {id:3, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
-        title:"Restauración de objetos en Ouro Preto",
-        text:"Conservación de bienes muebles e integrados en el centro histórico.",
-        images:["op_manos_obj_a.jpg","op_manos_obj_b.jpg","op_manos_obj_c.jpg"]},
-      {id:4, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
-        title:"Conservación de Inmueble Colonial – Brumas Hostel",
-        text:"Mantenimiento y conservación preventiva de una casa del siglo XVIII adaptada como hospedaje.",
-        images:["op_brumas_a.jpg","op_brumas_b.jpg","op_brumas_c.jpg"]},
-      {id:5, city:"Ouro Preto", country:"Brasil", lat:-20.385, lon:-43.503, category:"mano", star:false,
-        title:"Formación técnica – FAOP",
-        text:"Curso técnico en Conservación de Bienes Culturales en la tradicional FAOP.",
-        images:["op_faop_a.jpg","op_faop_b.jpg","op_faop_c.jpg"]},
-      {id:6, city:"Florianópolis", country:"Brasil", lat:-27.595, lon:-48.549, category:"org", star:true,
-        title:"Planificación estratégica y clima organizacional",
-        text:"BSC, diagnóstico organizacional y evaluación 360°. Fortalecimiento del trabajo en equipo y clima institucional en IPHAN/SC.",
-        images:["fln_bsc_a.jpg","fln_bsc_b.jpg","fln_bsc_c.jpg"]},
-      {id:7, city:"Belo Horizonte", country:"Brasil", lat:-19.917, lon:-43.934, category:"mano", star:false,
-        title:"Parroquia Sagrado Corazón – obras de emergencia",
-        text:"Conservación de estucos en templo protegido a nivel estatal de la comunidad sirio-cristiana.",
-        images:["bh_paroquia_a.jpg","bh_paroquia_b.jpg","bh_paroquia_c.jpg"]},
-      {id:8, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:true,
-        title:"Consultoría UNESCO/IPHAN – PRODOC",
-        text:"Mapa coroplético y repositorio de riesgos. Integración de datos nacionales y fortalecimiento de la gestión de riesgos.",
-        images:["bsb_prodoc_a.jpg","bsb_prodoc_b.jpg","bsb_prodoc_c.jpg"]},
-      {id:9, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
-        title:"Congreso Nacional – vulnerabilidades pos-8/01",
-        text:"Análisis in situ de vulnerabilidades. Aportes para protocolos institucionales de protección.",
-        images:["bsb_congresso_a.jpg","bsb_congresso_b.jpg","bsb_congresso_c.jpg"]},
-      {id:10, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
-        title:"Palacio Itamaraty – conservación de acervos",
-        text:"Levantamiento de vulnerabilidades y prácticas de conservación.",
-        images:["bsb_itamaraty_a.jpg","bsb_itamaraty_b.jpg","bsb_itamaraty_c.jpg"]},
-      {id:11, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
-        title:"CENAD – reunión multilateral",
-        text:"Articulación IPHAN–CENAD–UNESCO para la prevención de desastres que afectan bienes culturales.",
-        images:["bsb_cenad_a.jpg","bsb_cenad_b.jpg","bsb_cenad_c.jpg"]},
-      {id:12, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"coop", star:false,
-        title:"Agencia Nacional de Aguas – asociación estratégica",
-        text:"Integración de datos críticos sobre presas e inundaciones al sistema de monitoreo.",
-        images:["bsb_ana_a.jpg","bsb_ana_b.jpg","bsb_ana_c.jpg"]},
-      {id:13, city:"Brasília", country:"Brasil", lat:-15.794, lon:-47.882, category:"pol", star:true,
-        title:"Ministerio de Cultura – evaluador técnico",
-        text:"Evaluación PRONAC de proyectos de patrimonio, humanidades, museos y memoria.",
-        images:["bsb_minc_a.jpg","bsb_minc_b.jpg","bsb_minc_c.jpg"]},
-      {id:14, city:"Valencia", country:"España", lat:39.4699, lon:-0.3763, category:"pol", star:true,
-        title:"Universitat Politècnica de València – doctorado",
-        text:"Investigación doctoral con enfoque humanista que conecta educación, comunidad y preservación.",
-        images:["vlc_upv_a.jpg","vlc_upv_b.jpg","vlc_upv_c.jpg"]},
-      {id:15, city:"Roma", country:"Italia", lat:41.9028, lon:12.4964, category:"coop", star:false,
-        title:"ICCROM – Asamblea General 2025",
-        text:"Delegación que representa al IPHAN. Cooperación internacional y resiliencia patrimonial.",
-        images:["rom_iccrom_a.jpg","rom_iccrom_b.jpg","rom_iccrom_c.jpg"]},
-      {id:16, city:"Ciudad de Panamá", country:"Panamá", lat:8.9833, lon:-79.5167, category:"org", star:false,
-        title:"Conferencia APOYO – gestión institucional",
-        text:"Relevamiento nacional de espacios de conservación en la administración pública (con Fiocruz).",
-        images:["pty_apoyo_a.jpg","pty_apoyo_b.jpg","pty_apoyo_c.jpg"]},
-      {id:17, city:"Guadalajara", country:"México", lat:20.6736, lon:-103.344, category:"pol", star:false,
-        title:"Universidad de Guadalajara – “Conservar e Punir”",
-        text:"Publicación A2 sobre políticas públicas brasileñas de conservación.",
-        images:["gdl_paper_a.jpg","gdl_paper_b.jpg","gdl_paper_c.jpg"]},
-      {id:18, city:"Santiago de Chile", country:"Chile", lat:-33.4489, lon:-70.6693, category:"org", star:false,
-        title:"SICP – seminario de conservación de papel",
-        text:"Levantamiento nacional de laboratorios públicos, foco en papel.",
-        images:["scl_sicp_a.jpg","scl_sicp_b.jpg","scl_sicp_c.jpg"]},
-      {id:19, city:"Madrid", country:"España", lat:40.4168, lon:-3.7038, category:"org", star:true,
-        title:"OEI – consolidación internacional",
-        text:"Establecimiento en Madrid para ampliar la actuación iberoamericana en cooperación y patrimonio.",
-        images:["mad_oei_a.jpg","mad_oei_b.jpg","mad_oei_c.jpg"]},
-      {id:20, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"org", star:false,
-        title:"Grupo Libra – selección Proyecto Asia",
-        text:"Reclutamiento para 180 posiciones operativas. Gestión de RH y eficiencia organizacional.",
-        images:["rio_libra_a.jpg","rio_libra_b.jpg","rio_libra_c.jpg"]},
-      {id:21, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"org", star:false,
-        title:"UFRJ – formación en Psicología",
-        text:"Procesos organizacionales y comunicación institucional aplicados a gestión de equipos.",
-        images:["rio_ufrj_a.jpg","rio_ufrj_b.jpg","rio_ufrj_c.jpg"]},
-      {id:22, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"coop", star:true,
-        title:"Casa de Oswaldo Cruz – hub nacional OCM (ICCROM)",
-        text:"Sostenibilidad en laboratorios de conservación. COC como hub nacional del programa.",
-        images:["rio_coc_a.jpg","rio_coc_b.jpg","rio_coc_c.jpg"]},
-      {id:23, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"pol", star:false,
-        title:"IPHAN – maestría en preservación",
-        text:"Relaciones de poder e intervención. Aporte crítico al marco normativo de conservación.",
-        images:["rio_mestrado_a.jpg","rio_mestrado_b.jpg","rio_mestrado_c.jpg"]},
-      {id:24, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"mano", star:false,
-        title:"Biblioteca Nacional – encuadernador",
-        text:"Encuadernación y conservación de obras raras.",
-        images:["rio_bn_a.jpg","rio_bn_b.jpg","rio_bn_c.jpg"]},
-      {id:25, city:"Río de Janeiro", country:"Brasil", lat:-22.9068, lon:-43.1729, category:"mano", star:false,
-        title:"CCBB – restaurador",
-        text:"Restauración y conservación de obras del acervo del CCBB.",
-        images:["rio_ccbb_a.jpg","rio_ccbb_b.jpg","rio_ccbb_c.jpg"]},
-      {id:26, city:"Pelotas", country:"Brasil", lat:-31.771, lon:-52.342, category:"coop", star:false,
-        title:"UFPel/IPHAN-RS – articulación local",
-        text:"Coordinación con universidades e IPHAN para respuestas a las inundaciones de 2024.",
-        images:["pel_artic_a.jpg","pel_artic_b.jpg","pel_artic_c.jpg"]},
-      {id:27, city:"Porto Alegre", country:"Brasil", lat:-30.034, lon:-51.229, category:"coop", star:false,
-        title:"IPHAN-RS – respuesta institucional ante inundaciones",
-        text:"Análisis de daños y coordinación interinstitucional para mitigación y recuperación.",
-        images:["poa_cheias_a.jpg","poa_cheias_b.jpg","poa_cheias_c.jpg"]},
-      {id:28, city:"São José dos Campos", country:"Brasil", lat:-23.223, lon:-45.9, category:"coop", star:false,
-        title:"CEMADEN – articulación de datos",
-        text:"Intercambio de datos IPHAN–CEMADEN. Integración de alertas hidrometeorológicas.",
-        images:["sjc_cemaden_a.jpg","sjc_cemaden_b.jpg","sjc_cemaden_c.jpg"]},
-      {id:29, city:"Mariana", country:"Brasil", lat:-20.378, lon:-43.416, category:"coop", star:false,
-        title:"Bento Rodrigues – restauración posdesastre",
-        text:"Protocolos de reconstrucción y preservación de la memoria tras rompimiento de presa.",
-        images:["mar_bento_a.jpg","mar_bento_b.jpg","mar_bento_c.jpg"]},
-      {id:30, city:"Pirenópolis", country:"Brasil", lat:-15.852, lon:-48.958, category:"coop", star:false,
-        title:"ETEC/IPHAN-GO – encuentros multilaterales",
-        text:"Reuniones entre IPHAN y municipalidad para gestión del patrimonio ante desastres.",
-        images:["pir_etec_a.jpg","pir_etec_b.jpg","pir_etec_c.jpg"]},
-      {id:31, city:"Goiás Velho", country:"Brasil", lat:-15.934, lon:-50.14, category:"coop", star:false,
-        title:"ETEC/IPHAN-GO – traslado preventivo de bienes",
-        text:"Evacuación de bienes culturales durante crecidas del río Vermelho.",
-        images:["gv_trad_a.jpg","gv_trad_b.jpg","gv_trad_c.jpg"]},
-      {id:32, city:"Goiânia", country:"Brasil", lat:-16.686, lon:-49.264, category:"coop", star:false,
-        title:"IPHAN-GO – diagnóstico institucional",
-        text:"Mapeo de desafíos y capacidades institucionales con socios locales.",
-        images:["gyn_iphan_a.jpg","gyn_iphan_b.jpg","gyn_iphan_c.jpg"]},
-      {id:33, city:"Cuiabá", country:"Brasil", lat:-15.601, lon:-56.098, category:"coop", star:false,
-        title:"IPHAN-MT – articulación multilateral",
-        text:"Encuentro entre IPHAN, secretarías, UFMT y cantero modelo (gobernanza participativa).",
-        images:["cba_multi_a.jpg","cba_multi_b.jpg","cba_multi_c.jpg"]},
-      {id:34, city:"Rio Branco", country:"Brasil", lat:-9.974, lon:-67.809, category:"coop", star:false,
-        title:"IPHAN-AC – coordinación local",
-        text:"Prevención de riesgos sobre el patrimonio amazónico con actores regionales.",
-        images:["rb_ac_a.jpg","rb_ac_b.jpg","rb_ac_c.jpg"]},
-      {id:35, city:"Xapuri", country:"Brasil", lat:-10.651, lon:-68.507, category:"coop", star:true,
-        title:"Casa de Chico Mendes – prevención de inundaciones",
-        text:"Diagnóstico de vulnerabilidad y propuestas de protección de emergencia.",
-        images:["xap_casa_a.jpg","xap_casa_b.jpg","xap_casa_c.jpg"]},
-      {id:36, city:"Xapuri", country:"Brasil", lat:-10.651, lon:-68.507, category:"coop", star:false,
-        title:"Reserva Extractivista Chico Mendes – diálogo comunitario",
-        text:"Estrategias de preservación cultural y ambiental junto a la familia y comunidades locales.",
-        images:["xap_reserva_a.jpg","xap_reserva_b.jpg","xap_reserva_c.jpg"]}
-    ];
-
-    const map=L.map('map',{zoomControl:false,attributionControl:true}).setView([15,-40],3);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
-
-    const markers=[],rotationTimers=new Map();
-    function jitter(lat,lon,id){const seed=parseInt(id)||0;const r1=((Math.sin(seed*12.9898)*43758.5453)%1)*2-1;const r2=((Math.sin(seed*78.233)*96432.345)%1)*2-1;const d=0.03;return[lat+r1*d,lon+r2*d];}
-    function circleStyle(cat){const color=getComputedStyle(document.documentElement).getPropertyValue(CATEGORIES[cat].color.replace('var(','').replace(')','').trim())||'#60a5fa';return{radius:7,color:"#0b0f1a",weight:2,fillColor:color.trim(),fillOpacity:1};}
-    function starIcon(){return L.divIcon({className:'',html:`<div style="width:20px;height:20px;display:grid;place-items:center;filter:drop-shadow(0 0 2px rgba(0,0,0,.35));"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2l2.9 6.3 6.8.6-5.1 4.4 1.6 6.7-6.2-3.7-6.2 3.7 1.6-6.7-5.1-4.4 6.8-.6L12 2z" fill="var(--star)" stroke="#0b0f1a" stroke-width="1"/></svg></div>`,iconSize:[20,20],iconAnchor:[10,10]});}
-    function balloonHTML(rec,ttId){const imgs=Array.isArray(rec.images)?rec.images:[];const imgTag=imgs.length?`<img id="${ttId}_img" src="assets/${imgs[0]}" alt="${rec.title}">`:'';const star=rec.star?' ★':'';const catLabel=CATEGORIES[rec.category]?.label||rec.category;return`<div class="balloon">${imgTag}<div><h4>${rec.title}${star}</h4><p>${rec.text||''}</p><div class="tag">${rec.city}${rec.country?', '+rec.country:''} · ${catLabel}</div></div></div>`;}
-    function startImageRotation(marker){stopImageRotation(marker);const imgs=marker.rec.images||[];if(imgs.length<=1)return;let idx=0;const imgEl=document.getElementById(`${marker._ttId}_img`);if(!imgEl)return;const id=setInterval(()=>{idx=(idx+1)%imgs.length;imgEl.src=`assets/${imgs[idx]}`;},1400);rotationTimers.set(marker,id);}
-    function stopImageRotation(marker){const id=rotationTimers.get(marker);if(id){clearInterval(id);rotationTimers.delete(marker);}}
-    DATA.forEach((rec,i)=>{const cat=(rec.category||'').trim().toLowerCase();const[lat,lon]=jitter(rec.lat,rec.lon,rec.id);let marker;if(rec.star){marker=L.marker([lat,lon],{icon:starIcon()});}else{marker=L.circleMarker([lat,lon],circleStyle(cat));}marker.rec=rec;const ttId=`tt_${rec.id}_${Date.now()}_${i}`;marker._ttId=ttId;marker.bindTooltip(balloonHTML(rec,ttId),{direction:'top',className:'experience',sticky:true,opacity:0.98});marker.on('tooltipopen',()=>startImageRotation(marker));marker.on('tooltipclose',()=>stopImageRotation(marker));marker.addTo(map);markers.push(marker);});
-    function fitToData(){if(markers.length){const g=L.featureGroup(markers);map.fitBounds(g.getBounds().pad(0.2));}else{map.setView([15,-40],3);}}
-    fitToData();
-    document.getElementById('y').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
